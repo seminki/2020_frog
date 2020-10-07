@@ -91,7 +91,9 @@ Admin admin = (Admin)session.getAttribute("loggedInAdmin");%>
           <div class="admin-header-right-container">
  		<table>
           		<tr>
+          			<%if(admin!=null){ %>
           			<h3><%=admin.getAdminName()%>(<%=admin.getAdminLevelDescription() %>)님</h3>
+          			<%} %>
           		</tr>
           		<tr>
           			<td> <input type="button" id="logoutBtn" value="로그아웃">
@@ -114,7 +116,9 @@ Admin admin = (Admin)session.getAttribute("loggedInAdmin");%>
             <li><a href="<%=request.getContextPath()%>/admin/insertTag">태그등록</a></li>
             <li><a href="<%=request.getContextPath()%>/admin/editTag">태그수정</a></li>
             <li><a href="<%=request.getContextPath()%>/admin/manageChat">채팅관리</a></li>
+            <% if(admin!=null&& admin.getAdminLevel()==0){ %>
             <li><a href="<%=request.getContextPath()%>/admin/manageAdmin">관리자 계정</a></li>
+            <%} %>
           </ul>
         </nav>
    </header>
