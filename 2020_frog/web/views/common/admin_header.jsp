@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" import="com.toyspace.admin.model.vo.Admin"%>
-<% Admin admin = (Admin)request.getAttribute("loggedInAdmin");%>
+<% 
+session =request.getSession(false);
+Admin admin = (Admin)session.getAttribute("loggedInAdmin");%>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -118,11 +120,7 @@
    </header>
    <script>
    	$("#logoutBtn").click(e=>{
-   		<%
-   		msg="로그아웃 하셨습니다.";
-   		request.removeAttribute("loggedInAdmin");
-		%>
-			location.href = '<%=request.getContextPath()%>/msg?msg=<%=msg%>&loc=<%=loc%>';
+		location.href = '<%=request.getContextPath()%>/admin/logout';
    	})
    </script>
 

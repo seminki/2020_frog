@@ -1,27 +1,23 @@
 package com.toyspace.admin.controller;
 
 import java.io.IOException;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.toyspace.admin.model.service.AdminService;
-import com.toyspace.admin.model.vo.Admin;
-
 /**
- * Servlet implementation class AdminLoginOutServlet
+ * Servlet implementation class AdminLogoutServelt
  */
-@WebServlet("/admin/loginOut")
-public class AdminLoginOutServlet extends HttpServlet {
+@WebServlet("/admin/logout")
+public class AdminLogoutServelt extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public AdminLoginOutServlet() {
+    public AdminLogoutServelt() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -31,25 +27,10 @@ public class AdminLoginOutServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		String adminId=request.getParameter("adminId");
-		String adminPw=request.getParameter("adminPw");
-		Admin admin= new AdminService().loadMember(adminId,adminPw);
-		
-		String msg;
-		String loc;
-		String path;
-		
-		if(admin!=null) {
-			request.getSession().setAttribute("loggedInAdmin", admin);
-			path="/views/admin/mainPage.jsp";
-		} else {
-			msg="로그인 실패";
-			loc=request.getContextPath()+"/admin";
-			request.setAttribute("msg", msg);
-			request.setAttribute("loc", loc);
-			path="/views/common/msg.jsp";
-		}
-		request.getRequestDispatcher(path).forward(request, response);
+		request.getSession(false).invalidate();
+		String loc=request.getContextPath()+"/admin";
+		String msg ="로그아웃 되었습니다.";
+		request.getRequestDispatcher("/msg?msg="+msg+"&loc="+loc).forward(request, response);
 	}
 
 	/**
